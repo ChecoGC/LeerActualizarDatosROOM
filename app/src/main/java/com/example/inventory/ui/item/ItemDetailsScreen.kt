@@ -87,9 +87,9 @@ fun ItemDetailsScreen(
         }, modifier = modifier
     ) { innerPadding ->
         ItemDetailsBody(
-            itemDetailsUiState = uiState, // nombre correcto
-            onSellItem = {  },
-            onDelete = {  },
+            itemDetailsUiState = uiState,
+            onSellItem = { viewModel.reduceQuantityByOne() },
+            onDelete = { /* acción de eliminar */ },
             modifier = modifier.padding(innerPadding)
         )
     }

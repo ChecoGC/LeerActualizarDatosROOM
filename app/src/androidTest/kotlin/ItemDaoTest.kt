@@ -40,6 +40,18 @@ class ItemDaoTest {
         inventoryDatabase.close()
     }
 
+    @Test
+    @Throws(Exception::class)
+    fun daoUpdateItems_updatesItemsInDB() = runBlocking {
+        addTwoItemsToDb()
+        itemDao.update(Item(1, "Apples", 15.0, 25))
+        itemDao.update(Item(2, "Bananas", 5.0, 50))
+
+        val allItems = itemDao.getAllItems().first()
+        assertEquals(allItems[0], Item(1, "Apples", 15.0, 25))
+        assertEquals(allItems[1], Item(2, "Bananas", 5.0, 50))
+    }
+
     private var item1 = Item(1, "Apples", 10.0, 20)
     private var item2 = Item(2, "Bananas", 15.0, 97)
 

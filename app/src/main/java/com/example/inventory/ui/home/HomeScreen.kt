@@ -93,7 +93,6 @@ fun HomeScreen(
         },
         modifier = modifier
     ) { innerPadding ->
-        // 👇 Pasa la lista de items obtenida desde el ViewModel
         HomeBody(
             itemList = homeUiState.itemList,
             onItemClick = navigateToItemUpdate,

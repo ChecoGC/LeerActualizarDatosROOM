@@ -56,6 +56,7 @@ import com.example.inventory.ui.navigation.NavigationDestination
 import com.example.inventory.ui.theme.InventoryTheme
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 
 object HomeDestination : NavigationDestination {
@@ -72,17 +73,15 @@ fun HomeScreen(
     navigateToItemEntry: () -> Unit,
     navigateToItemUpdate: (Int) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = androidx.lifecycle.viewmodel.compose.viewModel(
-        factory = AppViewModelProvider.Factory
-    )
+    viewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
-    val homeUiState by viewModel.homeUiState.collectAsState()
 
+    val homeUiState by viewModel.homeUiState.collectAsState()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
     Scaffold(
         topBar = {
-            // Aquí va tu TopAppBar si ya la tienes implementada
+
         },
         floatingActionButton = {
             FloatingActionButton(onClick = navigateToItemEntry) {
@@ -92,8 +91,9 @@ fun HomeScreen(
                 )
             }
         },
-        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection)
+        modifier = modifier
     ) { innerPadding ->
+        // 👇 Pasa la lista de items obtenida desde el ViewModel
         HomeBody(
             itemList = homeUiState.itemList,
             onItemClick = navigateToItemUpdate,
